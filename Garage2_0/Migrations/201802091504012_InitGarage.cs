@@ -7,6 +7,7 @@ namespace Garage2_0.Migrations
     {
         public override void Up()
         {
+
             CreateTable(
                 "dbo.ParkedVehicles",
                 c => new
