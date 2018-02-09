@@ -11,7 +11,7 @@ namespace Garage2_0.DataAccessLayer
     public class RegisterContext : DbContext
     {
 
-        public RegisterContext() : base("DefaultConnection")
+        public RegisterContext() : base("vehicleConnection")
         {
 
         }
