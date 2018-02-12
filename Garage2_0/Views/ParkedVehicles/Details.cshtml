@@ -10,50 +10,27 @@
     <h4>ParkedVehicle</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
+        <!-- HD: Start grouping key/value pairs -->
+        <!-- HD: Start changing order of groups -->
 
         <dt>
             @Html.DisplayNameFor(model => model.RegNum)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.RegNum)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Colour)
+            @Html.DisplayNameFor(model => model.Type)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Colour)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ParkedTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ParkedTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NumOfWeels)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumOfWeels)
+            @Html.DisplayFor(model => model.Type)
         </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.CarMake)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.CarMake)
         </dd>
@@ -61,10 +38,33 @@
         <dt>
             @Html.DisplayNameFor(model => model.Model)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Model)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParkedTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParkedTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Colour)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Colour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumOfWeels)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumOfWeels)
+        </dd>
+
+        <!-- HD: End of changed order of groups -->
+        <!-- HD: End of grouping key/value pairs -->
 
     </dl>
 </div>
