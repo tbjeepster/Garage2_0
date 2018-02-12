@@ -158,6 +158,10 @@
     <Compile Include="Migrations\201802091504012_InitGarage.Designer.cs">
       <DependentUpon>201802091504012_InitGarage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802121156362_Enum_added.cs" />
+    <Compile Include="Migrations\201802121156362_Enum_added.Designer.cs">
+      <DependentUpon>201802121156362_Enum_added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -224,6 +228,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201802091504012_InitGarage.resx">
       <DependentUpon>201802091504012_InitGarage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802121156362_Enum_added.resx">
+      <DependentUpon>201802121156362_Enum_added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

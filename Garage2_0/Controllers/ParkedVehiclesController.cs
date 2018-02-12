@@ -49,8 +49,12 @@ namespace Garage2_0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Type,RegNum,Colour,ParkedTime,NumOfWeels,CarMake,Model")] ParkedVehicle parkedVehicle)
         {
+
             if (ModelState.IsValid)
             {
+                //LH added timestamp
+                parkedVehicle.ParkedTime = DateTime.Now;
+
                 db.Vehicle.Add(parkedVehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -67,6 +71,7 @@ namespace Garage2_0.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ParkedVehicle parkedVehicle = db.Vehicle.Find(id);
+           
             if (parkedVehicle == null)
             {
                 return HttpNotFound();
@@ -79,10 +84,11 @@ namespace Garage2_0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Type,RegNum,Colour,ParkedTime,NumOfWeels,CarMake,Model")] ParkedVehicle parkedVehicle)
+        public ActionResult Edit([Bind(Include = "Id,Type,RegNum,Colour,NumOfWeels,CarMake,Model")] ParkedVehicle parkedVehicle)
         {
             if (ModelState.IsValid)
             {
+                parkedVehicle.ParkedTime = DateTime.Now;
                 db.Entry(parkedVehicle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
