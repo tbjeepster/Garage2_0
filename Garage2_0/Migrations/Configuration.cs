@@ -16,8 +16,8 @@ namespace Garage2_0.Migrations
         protected override void Seed(Garage2_0.DataAccessLayer.RegisterContext context)
         {
             context.Vehicle.AddOrUpdate(
-                   p => p.RegNum,
-                   new ParkedVehicle { Type = "Personbil", RegNum = "ASD453", Colour = "Red", CarMake = "Volvo", Model = "PV", NumOfWeels = 4 , ParkedTime = DateTime.Now });
+            p => p.RegNum,
+             new ParkedVehicle { Type = "Personbil", RegNum = "ASD453", Colour = "Red", CarMake = "Volvo", Model = "PV", NumOfWeels = 4, ParkedTime = DateTime.Now });
         }
     }
 }
