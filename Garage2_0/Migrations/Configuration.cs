@@ -17,7 +17,7 @@ namespace Garage2_0.Migrations
         {
             context.Vehicle.AddOrUpdate(
                    p => p.RegNum,
-                   new ParkedVehicle { Type = "Personbil", RegNum = "ASD453", Colour = "Red", CarMake = "Volvo", Model = "PV", NumOfWeels = 4 });
+                   new ParkedVehicle { Type = "Personbil", RegNum = "ASD453", Colour = "Red", CarMake = "Volvo", Model = "PV", NumOfWeels = 4 , ParkedTime = DateTime.Now });
         }
     }
 }
