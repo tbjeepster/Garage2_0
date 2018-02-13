@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Garage2_0.Models.ParkedVehicle>
+
+@{
+    ViewBag.Title = "Sök";
+}
+
+<h2>Sök</h2>
+
+@using (Html.BeginForm())
+{
+<fieldset>
+    <p>
+        @Html.RadioButton("option", "regnum", true)
+        <label for="sizeLarge">Regnr</label>
+        @Html.RadioButton("option", "model")
+        <label for="sizeLarge">Märke</label>
+        @Html.TextBox("search")
+        <input type="submit" value="Sök" class="btn btn-default" />
+    </p>
+</fieldset>
+}
+
+@if (ViewBag.Count == 0)
+{<H1>Ingen träff</H1>}
+else
+{
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Colour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkedTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumOfWeels)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarMake)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Colour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkedTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumOfWeels)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarMake)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.ActionLink("Redigera", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Detalj", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Ta bort", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+}

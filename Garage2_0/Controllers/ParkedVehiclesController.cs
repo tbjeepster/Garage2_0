@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Garage2_0.DataAccessLayer;
 using Garage2_0.Models;
+using AutoMapper;
 
 namespace Garage2_0.Controllers
 {
@@ -105,7 +106,6 @@ namespace Garage2_0.Controllers
         {
             if (ModelState.IsValid)
             {
-                parkedVehicle.ParkedTime = DateTime.Now;
                 db.Entry(parkedVehicle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -138,6 +138,32 @@ namespace Garage2_0.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //GET
+        public ActionResult Search()
+        {
+            return View(db.Vehicle.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Search(string option, string search)
+        {
+            //the first parameter is the option that we choose and the second parameter will use the textbox value 
+            var model = db.Vehicle.ToList();
+          
+            if (option == "regnum")
+            {
+                 model = db.Vehicle.Where(x => x.RegNum.Contains(search) || search == null).ToList();
+                
+            }
+            else if (option == "model")
+            {
+                 model = db.Vehicle.Where(x => x.CarMake.Contains(search) || search == null).ToList();
+            }
+            ViewBag.Count = model.Count;
+            return View(model);
+        }
+    
 
         protected override void Dispose(bool disposing)
         {
