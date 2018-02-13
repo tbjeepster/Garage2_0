@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Garage2_0.Models
 {
@@ -9,12 +11,31 @@ namespace Garage2_0.Models
     {
 
             public int Id { get; set; }
+
+            [DisplayName("Fordonstyp")]
             public VehicleType Type { get; set; }
+
+            [RegularExpression("^([a-zA-Z0-9][a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?)$", ErrorMessage = "Ogiltig registrerings-sträng")]
+            [DisplayName("RegNum")]
             public string RegNum { get; set; }
+
+            [DisplayName("Färg")]
             public string Colour { get; set; }
+
+            [DisplayName("Ankomsttid")]
             public DateTime ParkedTime { get; set; }
+
+            [DisplayName("Hjulantal")]
             public int NumOfWeels { get; set; }
+
+            [Required(ErrorMessage = "Fältet får inte vara tomt.")]
+            [StringLength(20, MinimumLength = 1, ErrorMessage = "Längd måste tillhöra intervallet [1, 20]")]
+            [DisplayName("Fordonsfabrikat")]
             public string CarMake { get; set; }
+
+            [Required(ErrorMessage = "Fältet får inte vara tomt.")]
+            [StringLength(30, MinimumLength = 1, ErrorMessage = "Längd måste tillhöra intervallet [1, 30]")]
+            [DisplayName("Märke")]
             public string Model { get; set; }
 
         public enum VehicleType
@@ -30,10 +51,20 @@ namespace Garage2_0.Models
     public class ParkedVehicleProjection01
     {
         public int                       Id         { get; set; }
+
+        [DisplayName("Fordonstyp")]
         public ParkedVehicle.VehicleType Type       { get; set; }
+
+        [DisplayName("RegNum")]
         public string                    RegNum     { get; set; }
+
+        [DisplayName("Ankomsttid")]
         public DateTime                  ParkedTime { get; set; }
+
+        [DisplayName("Fordonsfabrikat")]
         public string                    CarMake    { get; set; }
+
+        [DisplayName("Märke")]
         public string                    Model      { get; set; }
     }
 }

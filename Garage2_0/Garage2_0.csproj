@@ -237,9 +237,6 @@
     <EmbeddedResource Include="Migrations\201802121156362_Enum_added.resx">
       <DependentUpon>201802121156362_Enum_added.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802131325578_NewTable.resx">
-      <DependentUpon>201802131325578_NewTable.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
