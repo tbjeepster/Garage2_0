@@ -26,4 +26,14 @@ namespace Garage2_0.Models
             Husvagn
         }
     }
+
+    public class ParkedVehicleProjection01
+    {
+        public int                       Id         { get; set; }
+        public ParkedVehicle.VehicleType Type       { get; set; }
+        public string                    RegNum     { get; set; }
+        public DateTime                  ParkedTime { get; set; }
+        public string                    CarMake    { get; set; }
+        public string                    Model      { get; set; }
+    }
 }

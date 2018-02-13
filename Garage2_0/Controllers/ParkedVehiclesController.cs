@@ -18,7 +18,24 @@ namespace Garage2_0.Controllers
         // GET: ParkedVehicles
         public ActionResult Index()
         {
+            /* HD
             return View(db.Vehicle.ToList());
+            */
+            /* HD */
+            var dataset =
+                db.Vehicle.Select(
+                    omega => new ParkedVehicleProjection01 {
+                        Id = omega.Id,
+                        Type       = omega.Type,
+                        RegNum     = omega.RegNum,
+                        ParkedTime = omega.ParkedTime,
+                        CarMake    = omega.CarMake,
+                        Model      = omega.Model
+                    }
+                );
+
+            return View(dataset);  // or Maybe return View(dataset.ToList());
+            /* End HD */
         }
 
         // GET: ParkedVehicles/Details/5
