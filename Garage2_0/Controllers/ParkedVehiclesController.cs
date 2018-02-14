@@ -16,6 +16,11 @@ namespace Garage2_0.Controllers
     {
         private RegisterContext db = new RegisterContext();
 
+        public ActionResult Start()
+        {
+            return View();
+        }
+
         // GET: ParkedVehicles
         public ActionResult Index()
         {
