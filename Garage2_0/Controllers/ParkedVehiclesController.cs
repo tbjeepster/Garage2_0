@@ -29,7 +29,9 @@ namespace Garage2_0.Controllers
             */
             /* HD */
             var dataset =
-                db.Vehicle.Select(
+                db.Vehicle
+                .OrderByDescending(omega => omega.ParkedTime.ToString())
+                .Select(
                     omega => new ParkedVehicleProjection01 {
                         Id = omega.Id,
                         Type       = omega.Type,
@@ -78,6 +80,9 @@ namespace Garage2_0.Controllers
                 //LH added timestamp
                 parkedVehicle.ParkedTime = DateTime.Now;
 
+                // Normalize RegNum to upper case letters (by HD).
+                parkedVehicle.RegNum = parkedVehicle.RegNum.ToUpper();
+
                 db.Vehicle.Add(parkedVehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -112,7 +117,17 @@ namespace Garage2_0.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(parkedVehicle).State = EntityState.Modified;
+
+                // Normalize RegNum to upper case letters (by HD).
+                var RegNum = db.Entry(parkedVehicle).Property(x => x.RegNum).CurrentValue;
+                db.Entry(parkedVehicle).Property(x => x.RegNum).CurrentValue = RegNum.ToUpper();
+
+                // Exclude ParkedTime column from update (by HD).
+                db.Entry(parkedVehicle).Property(x => x.ParkedTime).IsModified = false;
+
+                // Update rest of table row.
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(parkedVehicle);

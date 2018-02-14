@@ -30,12 +30,12 @@ namespace Garage2_0.Models
 
             [Required(ErrorMessage = "Fältet får inte vara tomt.")]
             [StringLength(20, MinimumLength = 1, ErrorMessage = "Längd måste tillhöra intervallet [1, 20]")]
-            [DisplayName("Fordonsfabrikat")]
+            [DisplayName("Märke")]
             public string CarMake { get; set; }
 
             [Required(ErrorMessage = "Fältet får inte vara tomt.")]
             [StringLength(30, MinimumLength = 1, ErrorMessage = "Längd måste tillhöra intervallet [1, 30]")]
-            [DisplayName("Märke")]
+            [DisplayName("Modell")]
             public string Model { get; set; }
 
         public enum VehicleType
@@ -61,10 +61,10 @@ namespace Garage2_0.Models
         [DisplayName("Ankomsttid")]
         public DateTime                  ParkedTime { get; set; }
 
-        [DisplayName("Fordonsfabrikat")]
+        [DisplayName("Märke")]
         public string                    CarMake    { get; set; }
 
-        [DisplayName("Märke")]
+        [DisplayName("Modell")]
         public string                    Model      { get; set; }
     }
 }
