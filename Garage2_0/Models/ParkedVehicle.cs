@@ -9,11 +9,13 @@ namespace Garage2_0.Models
 {
     public class ParkedVehicle
     {
+            public int Id       { get; set; }
 
-            public int Id { get; set; }
+            public int TypeId   { get; set; }
 
-            [DisplayName("Fordonstyp")]
-            public VehicleType Type { get; set; }
+            [Required]
+            [DisplayName("Medlemsnummer")]
+            public int MemberId { get; set; }
 
             [RegularExpression("^([a-zA-Z0-9][a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?)$", ErrorMessage = "Ogiltig registrerings-sträng")]
             [DisplayName("RegNum")]
@@ -38,22 +40,14 @@ namespace Garage2_0.Models
             [DisplayName("Modell")]
             public string Model { get; set; }
 
-        public enum VehicleType
-        {
-            Personbil,
-            SUV,
-            Buss,
-            MC,
-            Husvagn
-        }
+            public virtual ICollection<Member> Member { get; set; }
+            public virtual ICollection<VehicleType> Type { get; set; }
     }
-
+    //Indexview
     public class ParkedVehicleProjection01
     {
         public int                       Id         { get; set; }
 
-        [DisplayName("Fordonstyp")]
-        public ParkedVehicle.VehicleType Type       { get; set; }
 
         [DisplayName("RegNum")]
         public string                    RegNum     { get; set; }

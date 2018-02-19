@@ -17,7 +17,7 @@ namespace Garage2_0
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 /* new startpage (LH) */
-                defaults: new { controller = "ParkedVehicles", action = "Start", id = UrlParameter.Optional }
+                defaults: new { controller = "ParkedVehicles1", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
