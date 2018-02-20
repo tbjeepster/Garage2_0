@@ -18,7 +18,96 @@ namespace Garage2_0.Controllers
         // GET: ParkedVehicles1
         public ActionResult Index()
         {
-            return View(db.Vehicle.ToList());
+#if true
+            /*
+                        DataSet ds = new DataSet();
+            ds.Locale = CultureInfo.InvariantCulture;
+            FillDataSet(ds);
+
+            DataTable contacts = ds.Tables["Contact"];
+            DataTable orders = ds.Tables["SalesOrderHeader"];
+
+            var query =
+                contacts.AsEnumerable().Join(orders.AsEnumerable(),
+                order => order.Field<Int32>("ContactID"),
+                contact => contact.Field<Int32>("ContactID"),
+                (contact, order) => new
+                {
+                    ContactID = contact.Field<Int32>("ContactID"),
+                    SalesOrderID = order.Field<Int32>("SalesOrderID"),
+                    FirstName = contact.Field<string>("FirstName"),
+                    Lastname = contact.Field<string>("Lastname"),
+                    TotalDue = order.Field<decimal>("TotalDue")
+                });
+            */
+
+            var dataset =
+                db.Vehicle
+                .Include(omega => omega.Type)
+                .Include(omega => omega.Member)
+                .OrderByDescending(omega => omega.ParkedTime.ToString())
+                .Select(
+                    omega => new ParkedVehicleProjection01Ext01 {
+                        Id         = omega.Id,
+                        TypeId     = omega.TypeId,
+                        TypeName   = omega.Type.Type,
+                        MemberId   = omega.MemberId,
+                        MemberName = omega.Member.Name,
+                        RegNum     = omega.RegNum,
+                        ParkedTime = omega.ParkedTime,
+                        CarMake    = omega.CarMake,
+                        Model      = omega.Model
+                    }
+                );
+            return View(dataset);
+#else
+            var dataset =
+                db.Vehicle
+                .OrderByDescending(omega => omega.ParkedTime.ToString())
+                .Select(
+                    omega => new ParkedVehicleProjection01Ext01 {
+                        Id         = omega.Id,
+                        TypeId     = omega.TypeId,
+                        TypeName   = (omega.TypeId).ToString(),
+                        MemberId   = omega.MemberId,
+                        MemberName = (omega.MemberId).ToString(),
+                        RegNum = omega.RegNum,
+                        ParkedTime = omega.ParkedTime,
+                        CarMake    = omega.CarMake,
+                        Model      = omega.Model
+                    }
+                );
+            return View(dataset);
+            // return View(dataset.ToList());
+#endif
+        }
+
+        public ActionResult DetailedIndex()
+        {
+            var dataset =
+                db.Vehicle
+                .Include(omega => omega.Type)
+                .Include(omega => omega.Member)
+                .OrderByDescending(omega => omega.ParkedTime.ToString())
+                .Select(
+                    omega => new ParkedVehicleExt01
+                    {
+                        Id         = omega.Id,
+                        TypeId     = omega.TypeId,
+                        MemberId   = omega.MemberId,
+                        TypeName   = omega.Type.Type,
+                        MemberName = omega.Member.Name,
+                        Colour     = omega.Colour,
+                        NumOfWeels = omega.NumOfWeels,
+                        RegNum     = omega.RegNum,
+                        ParkedTime = omega.ParkedTime,
+                        CarMake    = omega.CarMake,
+                        Model      = omega.Model
+                    }
+                );
+
+            return View(dataset);
+            // return View(db.Vehicle);
         }
 
         // GET: ParkedVehicles1/Details/5
