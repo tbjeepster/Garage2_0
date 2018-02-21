@@ -20,6 +20,30 @@ namespace Garage2_0.Controllers
         {
             return View(db.Member.ToList());
         }
+        [HttpPost]
+        public ActionResult Search(string option, string search)
+        {
+            //the first parameter is the option that we choose and the second parameter will use the textbox value 
+            var model = db.Member.ToList();
+
+            if (option == "name")
+            {
+                model = db.Member.Where(x => x.Name.Contains(search) || search == null).ToList();
+
+            }
+            else if (option == "id")
+            {
+                model = db.Member.Where(x => x.Id.Equals(search) || search == null).ToList();
+            }
+            ViewBag.Count = model.Count;
+            return View(model);
+        }
+
+
+
+
+
+
 
         // GET: Members/Details/5
         public ActionResult Details(int? id)
@@ -126,3 +150,4 @@ namespace Garage2_0.Controllers
         }
     }
 }
+
