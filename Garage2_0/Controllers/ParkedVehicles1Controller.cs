@@ -19,7 +19,54 @@ namespace Garage2_0.Controllers
         // GET: ParkedVehicles1
         public ActionResult Index()
         {
-            return View(db.Vehicle.ToList());
+            var dataset =
+                db.Vehicle
+                .Include(omega => omega.Type)
+                .Include(omega => omega.Member)
+                .OrderByDescending(omega => omega.ParkedTime.ToString())
+                .Select(
+                    omega => new ParkedVehicleProjection01Ext01
+                    {
+                        Id = omega.Id,
+                        TypeId = omega.TypeId,
+                        TypeName = omega.Type.Type,
+                        MemberId = omega.MemberId,
+                        MemberName = omega.Member.Name,
+                        RegNum = omega.RegNum,
+                        ParkedTime = omega.ParkedTime,
+                        CarMake = omega.CarMake,
+                        Model = omega.Model
+                    }
+                );
+            return View(dataset);
+        }
+
+        public ActionResult DetailedIndex()
+        {
+            var dataset =
+                db.Vehicle
+                .Include(omega => omega.Type)
+                .Include(omega => omega.Member)
+                .OrderByDescending(omega => omega.ParkedTime.ToString())
+                .Select(
+                    omega => new ParkedVehicleExt01
+                    {
+                        Id = omega.Id,
+                        TypeId = omega.TypeId,
+                        MemberId = omega.MemberId,
+                        TypeName = omega.Type.Type,
+                        MemberName = omega.Member.Name,
+                        Colour = omega.Colour,
+                        NumOfWeels = omega.NumOfWeels,
+                        RegNum = omega.RegNum,
+                        ParkedTime = omega.ParkedTime,
+                        CarMake = omega.CarMake,
+                        Model = omega.Model
+                    }
+                );
+
+            return View(dataset);
+            // return View(db.Vehicle);
         }
 
         // GET: ParkedVehicles1/Details/5
