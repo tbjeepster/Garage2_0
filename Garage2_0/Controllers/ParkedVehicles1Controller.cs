@@ -188,6 +188,10 @@ namespace Garage2_0.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(parkedVehicle).State = EntityState.Modified;
+
+                // Exclude ParkedTime column from update (by HD).
+                db.Entry(parkedVehicle).Property(x => x.ParkedTime).IsModified = false;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
