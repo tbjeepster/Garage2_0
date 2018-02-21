@@ -160,9 +160,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802201349500_xyzzy75.cs" />
-    <Compile Include="Migrations\201802201349500_xyzzy75.Designer.cs">
-      <DependentUpon>201802201349500_xyzzy75.cs</DependentUpon>
+    <Compile Include="Migrations\201802210809508_ny.cs" />
+    <Compile Include="Migrations\201802210809508_ny.Designer.cs">
+      <DependentUpon>201802210809508_ny.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Member.cs" />
@@ -182,7 +182,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -246,8 +245,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802201349500_xyzzy75.resx">
-      <DependentUpon>201802201349500_xyzzy75.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802210809508_ny.resx">
+      <DependentUpon>201802210809508_ny.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

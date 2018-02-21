@@ -19,96 +19,7 @@ namespace Garage2_0.Controllers
         // GET: ParkedVehicles1
         public ActionResult Index()
         {
-#if true
-            /*
-                        DataSet ds = new DataSet();
-            ds.Locale = CultureInfo.InvariantCulture;
-            FillDataSet(ds);
-
-            DataTable contacts = ds.Tables["Contact"];
-            DataTable orders = ds.Tables["SalesOrderHeader"];
-
-            var query =
-                contacts.AsEnumerable().Join(orders.AsEnumerable(),
-                order => order.Field<Int32>("ContactID"),
-                contact => contact.Field<Int32>("ContactID"),
-                (contact, order) => new
-                {
-                    ContactID = contact.Field<Int32>("ContactID"),
-                    SalesOrderID = order.Field<Int32>("SalesOrderID"),
-                    FirstName = contact.Field<string>("FirstName"),
-                    Lastname = contact.Field<string>("Lastname"),
-                    TotalDue = order.Field<decimal>("TotalDue")
-                });
-            */
-
-            var dataset =
-                db.Vehicle
-                .Include(omega => omega.Type)
-                .Include(omega => omega.Member)
-                .OrderByDescending(omega => omega.ParkedTime.ToString())
-                .Select(
-                    omega => new ParkedVehicleProjection01Ext01 {
-                        Id         = omega.Id,
-                        TypeId     = omega.TypeId,
-                        TypeName   = omega.Type.Type,
-                        MemberId   = omega.MemberId,
-                        MemberName = omega.Member.Name,
-                        RegNum     = omega.RegNum,
-                        ParkedTime = omega.ParkedTime,
-                        CarMake    = omega.CarMake,
-                        Model      = omega.Model
-                    }
-                );
-            return View(dataset);
-#else
-            var dataset =
-                db.Vehicle
-                .OrderByDescending(omega => omega.ParkedTime.ToString())
-                .Select(
-                    omega => new ParkedVehicleProjection01Ext01 {
-                        Id         = omega.Id,
-                        TypeId     = omega.TypeId,
-                        TypeName   = (omega.TypeId).ToString(),
-                        MemberId   = omega.MemberId,
-                        MemberName = (omega.MemberId).ToString(),
-                        RegNum = omega.RegNum,
-                        ParkedTime = omega.ParkedTime,
-                        CarMake    = omega.CarMake,
-                        Model      = omega.Model
-                    }
-                );
-            return View(dataset);
-            // return View(dataset.ToList());
-#endif
-        }
-
-        public ActionResult DetailedIndex()
-        {
-            var dataset =
-                db.Vehicle
-                .Include(omega => omega.Type)
-                .Include(omega => omega.Member)
-                .OrderByDescending(omega => omega.ParkedTime.ToString())
-                .Select(
-                    omega => new ParkedVehicleExt01
-                    {
-                        Id         = omega.Id,
-                        TypeId     = omega.TypeId,
-                        MemberId   = omega.MemberId,
-                        TypeName   = omega.Type.Type,
-                        MemberName = omega.Member.Name,
-                        Colour     = omega.Colour,
-                        NumOfWeels = omega.NumOfWeels,
-                        RegNum     = omega.RegNum,
-                        ParkedTime = omega.ParkedTime,
-                        CarMake    = omega.CarMake,
-                        Model      = omega.Model
-                    }
-                );
-
-            return View(dataset);
-            // return View(db.Vehicle);
+            return View(db.Vehicle.ToList());
         }
 
         // GET: ParkedVehicles1/Details/5
@@ -147,7 +58,7 @@ namespace Garage2_0.Controllers
             {
                 memberList.Add(new SelectListItem
                 {
-                    Text = item.Id.ToString(),
+                    Text = item.Id.ToString() + "       [Medlemsnamn: " + item.Name + "]",
                     Value = item.Id.ToString()
                 });
             };
@@ -169,8 +80,7 @@ namespace Garage2_0.Controllers
                 parkedVehicle.ParkedTime = DateTime.Now;
                 // Normalize RegNum to upper case letters (by HD).
                 parkedVehicle.RegNum = parkedVehicle.RegNum.ToUpper();
-
-               
+             
                 db.Vehicle.Add(parkedVehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -191,6 +101,33 @@ namespace Garage2_0.Controllers
             {
                 return HttpNotFound();
             }
+
+            ICollection<VehicleType> type = db.VehicleType.ToList();
+            List<SelectListItem> typeList = new List<SelectListItem>();
+            foreach (var item in type)
+            {
+                typeList.Add(new SelectListItem
+                {
+                    Text = item.Type,
+                    Value = item.Id.ToString()
+                });
+            };
+            ViewBag.TypeList = typeList;
+            ViewBag.TypeSelected = parkedVehicle.Id;
+
+            ICollection<Member> member = db.Member.ToList();
+            List<SelectListItem> memberList = new List<SelectListItem>();
+            foreach (var item in member)
+            {
+                memberList.Add(new SelectListItem
+                {
+                    Text = item.Id.ToString() + "       [Medlemsnamn: " + item.Name + "]",
+                    Value = item.Id.ToString()
+                });
+            };
+            ViewBag.MemberList = memberList;
+            ViewBag.MemberSelected = parkedVehicle.Member.Id;
+
             return View(parkedVehicle);
         }
 
@@ -235,6 +172,7 @@ namespace Garage2_0.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {
