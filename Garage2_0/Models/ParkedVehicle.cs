@@ -39,9 +39,9 @@ namespace Garage2_0.Models
             [StringLength(30, MinimumLength = 1, ErrorMessage = "Längd måste tillhöra intervallet [1, 30]")]
             [DisplayName("Modell")]
             public string Model { get; set; }
-
-            public virtual ICollection<Member> Member { get; set; }
-            public virtual ICollection<VehicleType> Type { get; set; }
+       
+            public virtual Member Member { get; set; }
+            public virtual VehicleType Type { get; set;}
     }
     //Indexview
     public class ParkedVehicleProjection01

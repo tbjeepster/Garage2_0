@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Garage2_0.DataAccessLayer;
 using Garage2_0.Models;
 
+
 namespace Garage2_0.Controllers
 {
     public class ParkedVehicles1Controller : Controller
@@ -39,6 +40,30 @@ namespace Garage2_0.Controllers
         // GET: ParkedVehicles1/Create
         public ActionResult Create()
         {
+            ICollection<VehicleType> type = db.VehicleType.ToList();
+            List<SelectListItem> typeList = new List<SelectListItem>();
+            foreach (var item in type)
+            {
+                typeList.Add(new SelectListItem
+                {
+                    Text = item.Type,
+                    Value = item.Id.ToString()
+                });
+            };
+            ViewBag.TypeList = typeList;
+
+            ICollection<Member> member = db.Member.ToList();
+            List<SelectListItem> memberList = new List<SelectListItem>();
+            foreach (var item in member)
+            {
+                memberList.Add(new SelectListItem
+                {
+                    Text = item.Id.ToString(),
+                    Value = item.Id.ToString()
+                });
+            };
+            ViewBag.MemberList = memberList;
+
             return View();
         }
 
@@ -51,13 +76,19 @@ namespace Garage2_0.Controllers
         {
             if (ModelState.IsValid)
             {
+                //LH added timestamp
+                parkedVehicle.ParkedTime = DateTime.Now;
+                // Normalize RegNum to upper case letters (by HD).
+                parkedVehicle.RegNum = parkedVehicle.RegNum.ToUpper();
+
+               
                 db.Vehicle.Add(parkedVehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(parkedVehicle);
-        }
+    }
 
         // GET: ParkedVehicles1/Edit/5
         public ActionResult Edit(int? id)
